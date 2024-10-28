@@ -1,19 +1,26 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/common/utils.dart';
 import 'package:netflix/models/popular_movie_model.dart';
+import 'package:netflix/screens/movie_details_page.dart';
 
-class PopularMovieCard extends StatelessWidget {
+class PopularMovieCard extends StatefulWidget {
   final Future<PopularMovieModel> future;
 
   const PopularMovieCard({super.key, required this.future});
 
   @override
+  _PopularMovieCardState createState() => _PopularMovieCardState();
+}
+
+class _PopularMovieCardState extends State<PopularMovieCard> {
+  bool isPressed = false; 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: future,
+        future: widget.future,
         builder: (context, snapshot) {
           var data = snapshot.data?.results;
           if (!snapshot.hasData) {
@@ -54,26 +61,35 @@ class PopularMovieCard extends StatelessWidget {
                   height: 450,
                   child: Stack(
                     children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: const BorderSide(
-                            color: Color.fromARGB(255, 40, 39, 39),
-                            width: 0.5,
-                          ),
-                        ),
-                        child: ClipRRect(
+                      InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MovieDetailsPage(
+                                      movieId: data[0].id,
+                                    ))),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                                '$imageUrl${data![0].posterPath}')),
+                            side: const BorderSide(
+                              color: Colors.white,
+                              width: 0.5,
+                            ),
+                          ),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                  '$imageUrl${data![0].posterPath}')),
+                        ),
                       ),
                       Positioned(
                           bottom: 100,
                           child: Padding(
-                            padding: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              data[0].originalTitle,
+                              data[0].title,
                               style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: GoogleFonts.ptSans().fontFamily),
@@ -111,7 +127,12 @@ class PopularMovieCard extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 25),
                               child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed =
+                                          !isPressed; // Toggle the state
+                                    });
+                                  },
                                   style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
@@ -119,15 +140,18 @@ class PopularMovieCard extends StatelessWidget {
                                       minimumSize: const Size(120, 35),
                                       backgroundColor: const Color.fromARGB(
                                           108, 255, 255, 255)),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.add,
+                                        isPressed
+                                            ? Icons.check
+                                            : Icons.add, // Toggle between icons
                                         color: Colors.white,
                                         size: 30,
                                       ),
-                                      Text('Play',
+                                      const Text(
+                                          'My List', // Toggle text as well
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,

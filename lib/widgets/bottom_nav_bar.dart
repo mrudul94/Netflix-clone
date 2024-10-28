@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/screens/game_page.dart';
 import 'package:netflix/screens/home_screen.dart';
 import 'package:netflix/screens/new_and_hot.dart';
-import 'package:netflix/widgets/categoreies.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -10,20 +8,14 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
-      
+        length: 2,
         child: Scaffold(
           bottomNavigationBar: Container(
             color: Colors.black,
             height: 70,
             child: TabBar(
-              
               tabs: [
                 const Tab(icon: Icon(Icons.home), text: 'Home'),
-                const Tab(
-                  icon: Icon(Icons.games_sharp),
-                  text: 'Games',
-                ),
                 const Tab(
                   icon: Icon(Icons.newspaper),
                   text: 'New & Hot',
@@ -51,13 +43,12 @@ class BottomNavBar extends StatelessWidget {
               labelColor: Colors.white,
               labelStyle: const TextStyle(fontSize: 10),
               unselectedLabelColor: const Color(0xff999999),
+              dividerColor: Colors.black,
             ),
           ),
           body: const TabBarView(children: [
             HomeScreen(),
-            GamePage(),
             NewAndHot(),
-            Categoreies()
           ]),
         ));
   }
