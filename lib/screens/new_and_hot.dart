@@ -97,7 +97,7 @@ class _NewAndHotState extends State<NewAndHot> {
                               imageUrl: movie.posterPath,
                               overView: movie.overview,
                               logourl: movie.backdropPath,
-                              month: "Apr",
+                              month: "Nov",
                               day: "12",
                             );
                           } else {
@@ -122,7 +122,7 @@ class _NewAndHotState extends State<NewAndHot> {
                               imageUrl: movie.posterPath,
                               overView: movie.overview,
                               logourl: movie.backdropPath,
-                              month: "Mar",
+                              month: "Nov",
                               day: "29",
                             );
                           } else {
@@ -150,7 +150,7 @@ class _NewAndHotState extends State<NewAndHot> {
                               imageUrl: movie.posterPath,
                               overview: movie.overview,
                               logourl: movie.backdropPath,
-                              month: "Apr",
+                              month: "Dec",
                               day: "12",
                             );
                           } else {
@@ -175,7 +175,7 @@ class _NewAndHotState extends State<NewAndHot> {
                               imageUrl: movie.posterPath,
                               overview: movie.overview,
                               logourl: movie.backdropPath,
-                              month: "Mar",
+                              month: "DC",
                               day: "29",
                             );
                           } else {

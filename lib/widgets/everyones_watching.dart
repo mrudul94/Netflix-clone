@@ -40,10 +40,19 @@ class EveryoneWatchWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 100,
-                width: 120,
-                child: Image.network(fullLogoUrl),
-              ),
+                        height: 100,
+                        width: 120,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            fullLogoUrl,
+                            fit: BoxFit.fill,
+                            alignment: Alignment.centerLeft,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
+                      ),
               const Spacer(),
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
